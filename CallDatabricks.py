@@ -46,7 +46,7 @@ with sql.connect(
 ) as connection:
     query = f"""
         SELECT
-            date_format(usage_date, 'yyyy-MM'),
+            usage_date,
             workspace_id,
             sbu.sku_name,
             custom_tags,
@@ -68,5 +68,5 @@ with sql.connect(
         rows = cursor.fetchall()
 
 # Step 3: Save results to CSV
-df = pd.DataFrame(rows, columns=["year_mon","workspace_id","sku_name","custom_tags","usage_quantity","usage_unit","currency_code","cost"])
+df = pd.DataFrame(rows, columns=["usage_date","workspace_id","sku_name","custom_tags","usage_quantity","usage_unit","currency_code","cost"])
 df.to_csv(OUTPUT_FILE + ".csv", index=False)
